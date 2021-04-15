@@ -1,22 +1,38 @@
 package sk.tuke.gamestudio.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
+@NamedQuery(name = "Score.getTopScores",
+        query = "SELECT s FROM Score s WHERE s.game=:game ORDER BY s.points DESC")
+@NamedQuery(name = "Score.resetScores",
+        query = "DELETE FROM Score")
+
+
 public class Score implements Serializable {
+    @Id
+    @GeneratedValue
+    private int id;
+
     private String game;
-
     private String player;
-
     private int points;
+    private Date playedAt;
 
-    private Date playedat;
+    public Score() {
 
-    public Score(String game, String player, int points, Date playedat) {
+    }
+
+    public Score(String game, String player, int points, Date playedAt) {
         this.game = game;
         this.player = player;
         this.points = points;
-        this.playedat = playedat;
+        this.playedAt = playedAt;
     }
 
     public String getGame() {
@@ -27,13 +43,6 @@ public class Score implements Serializable {
         this.game = game;
     }
 
-    public String getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(String player) {
-        this.player = player;
-    }
 
     public int getPoints() {
         return points;
@@ -44,11 +53,20 @@ public class Score implements Serializable {
     }
 
     public Date getPlayedAt() {
-        return playedat;
+        return playedAt;
     }
 
-    public void setPlayedAt(Date playedat) {
-        this.playedat = playedat;
+    public void setPlayedAt(Date playerAt) {
+        this.playedAt = playerAt;
+    }
+
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
     }
 
     @Override
@@ -57,8 +75,15 @@ public class Score implements Serializable {
                 "game='" + game + '\'' +
                 ", player='" + player + '\'' +
                 ", points=" + points +
-                ", playedOn=" + playedat +
+                ", playerAt=" + playedAt +
                 '}';
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

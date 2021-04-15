@@ -1,5 +1,6 @@
 package sk.tuke.gamestudio.game.consoleUI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.game.core.Field;
 import sk.tuke.gamestudio.game.core.Tile;
 import sk.tuke.gamestudio.entity.Score;
@@ -22,18 +23,24 @@ public class ConsoleUI {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RED = "\u001B[31m";
 
-    private final Field field;
-    private final ScoreService scoreService = new ScoreServiceJDBC();
-    private final CommentService commentService = new CommentServiceJDBC();
+    private Field field;
+
+    @Autowired
+    private ScoreService scoreService;
+    @Autowired
+    private CommentService commentService;
+
     private int score = 0;
     private int checker = 1;
     private int randomNum = ThreadLocalRandom.current().nextInt(6, 12 + 1);
     private String name;
     private final Scanner scanner = new Scanner(System.in);
-    public static final String GAME_NAME = "peg solitaire";
+    public static final String GAME_NAME = "peg_solitaire";
 
-    public ConsoleUI(Field field) {
+    public ConsoleUI(Field field, ScoreService scoreService, CommentService commentService) {
         this.field = field;
+        this.scoreService = scoreService;
+        this.commentService = commentService;
     }
 
     public void welcome(){
@@ -57,24 +64,25 @@ public class ConsoleUI {
     }
 
     public void play() {
+        welcome();
         boolean won = false;
         while (!field.checkLose()) {
             if(checker == 1){
                 while(!scanner.nextLine().equals("help"));
                 System.out.printf(ANSI_GREEN);
-                textWait("You have a few commands for game:");
-                textWait("start - for a start the new game");
-                textWait("exit - leave from the game without saving");
-                textWait("leave - leave from the game with saving");
-                textWait("top10 - check 10 the best players");
-                textWait("top - check all players");
-                textWait("comment - write a feedback");
-                textWait("list - check all comments");
-                textWait("list10 - check 10 lasts comments");
-                textWait("resetList - reset all comments");
-                textWait("restart - restart the game");
-                textWait("resetTop - reset stats");
-                textWait("Good luck!");
+                charsWait("You have a few commands for game:");
+                charsWait("start - for a start the new game");
+                charsWait("exit - leave from the game without saving");
+                charsWait("leave - leave from the game with saving");
+                charsWait("top10 - check 10 the best players");
+                charsWait("top - check all players");
+                charsWait("comment - write a feedback");
+                charsWait("list - check all comments");
+                charsWait("list10 - check 10 lasts comments");
+                charsWait("resetList - reset all comments");
+                charsWait("restart - restart the game");
+                charsWait("resetTop - reset stats");
+                charsWait("Good luck!");
                 wait(500);
                 System.out.printf(ANSI_RESET);
                 while(!scanner.nextLine().equals("start"));
@@ -195,18 +203,18 @@ public class ConsoleUI {
         }
         else if (line.equals("help")) {
             System.out.printf(ANSI_GREEN);
-            textWait("You have a few commands for game:");
-            textWait("exit - leave from the game without saving");
-            textWait("leave - leave from the game with saving");
-            textWait("top10 - check 10 the best players");
-            textWait("top - check all players");
-            textWait("comment - write a feedback");
-            textWait("list - check all comments");
-            textWait("list10 - check 10 lasts comments");
-            textWait("resetList - reset all comments");
-            textWait("restart - restart the game");
-            textWait("resetTop - reset stats");
-            textWait("Good luck!");
+            charsWait("You have a few commands for game:");
+            charsWait("exit - leave from the game without saving");
+            charsWait("leave - leave from the game with saving");
+            charsWait("top10 - check 10 the best players");
+            charsWait("top - check all players");
+            charsWait("comment - write a feedback");
+            charsWait("list - check all comments");
+            charsWait("list10 - check 10 lasts comments");
+            charsWait("resetList - reset all comments");
+            charsWait("restart - restart the game");
+            charsWait("resetTop - reset stats");
+            charsWait("Good luck!");
             wait(500);
             System.out.printf(ANSI_RESET);
         }
@@ -315,6 +323,11 @@ public class ConsoleUI {
 
     public void textWait(String string){
         wait(500);
+        System.out.println(string);
+    }
+
+    public void charsWait(String string){
+        wait(250);
         System.out.println(string);
     }
 
