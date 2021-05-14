@@ -60,3 +60,12 @@ a {
     margin-left: 21%;
     padding-right: 19%;
 }
+
+.blocks{
+    position: relative;
+    display: block;
+}
+
+#right{
+    margin-left: 71%;
+}
