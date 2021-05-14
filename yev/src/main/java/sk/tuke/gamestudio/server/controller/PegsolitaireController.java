@@ -83,6 +83,7 @@ public class PegsolitaireController {
     @RequestMapping("/new")
     public String newGame(){
         field.setScore(0);
+        score = 0;
         field = new Field();
         gameWon = false;
         gameLost = false;
