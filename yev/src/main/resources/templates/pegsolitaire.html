@@ -36,11 +36,12 @@ Logged as: <span th:text="${@userController.loggedUser.login}"/><br/>
 
 
 <br/>
-<div>
-    <p>TopScores</p>
 
+<div class="blocks">
+    <a id="left">TopScores</a>
+<a id="right">TopComments</a>
 </div>
-<div>
+<div class="midFlex">
 
     <table>
         <thead>
@@ -59,35 +60,37 @@ Logged as: <span th:text="${@userController.loggedUser.login}"/><br/>
         </tbody>
     </table>
 
-    <P>TopComments</p>
-        <table>
-            <thead>
-            <tr>
-                <th>Game</th>
-                <th>Player</th>
-                <th>Comment</th>
-                <th>Commented On</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="comment : ${Topcomments}">
-                <td th:text="${comment.game}"></td>
-                <td th:text="${comment.player}"></td>
-                <td th:text="${comment.comment}"></td>
-                <td th:text="${comment.commentedOn}"></td>
-            </tr>
 
 
+<table>
+    <thead>
+    <tr>
+        <th>Game</th>
+        <th>Player</th>
+        <th>Comment</th>
+        <th>Commented On</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comment : ${Topcomments}">
+        <td th:text="${comment.game}"></td>
+        <td th:text="${comment.player}"></td>
+        <td th:text="${comment.comment}"></td>
+        <td th:text="${comment.commentedOn}"></td>
+    </tr>
+    </tbody>
+</table>
 </div>
 
 <br>
-<h2>Add your Comment!</h2>
-<form method="get" action="/pegsolitaire/nComment">
+<h2 class="mid">Add your Comment!</h2>
+<form method="get" action="/pegsolitaire/nComment" class="mid">
     <label for="nComment">Comment:</label>
     <textarea name="comment" id="nComment" spellcheck="true" lang="eng" cols="40" rows="4"></textarea>
     <br>
     <input type="submit" value="Add comment">
 </form>
+
 
 
 </body>
