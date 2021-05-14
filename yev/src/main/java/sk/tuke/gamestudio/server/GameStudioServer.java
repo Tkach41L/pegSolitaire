@@ -5,10 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import sk.tuke.gamestudio.service.CommentService;
-import sk.tuke.gamestudio.service.CommentServiceJPA;
-import sk.tuke.gamestudio.service.ScoreServiceJPA;
-import sk.tuke.gamestudio.service.ScoreService;
+import sk.tuke.gamestudio.service.*;
 
 @Configuration
 @SpringBootApplication
@@ -29,4 +26,8 @@ public class GameStudioServer {
         return new CommentServiceJPA();
     }
 
+    @Bean
+    public UserService userService() {
+        return new UserServiceJPA();
+    }
 }

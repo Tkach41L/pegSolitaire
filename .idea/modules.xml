@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/yev/gamestudio.iml" filepath="$PROJECT_DIR$/yev/gamestudio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/gamestudio-4925.iml" filepath="$PROJECT_DIR$/.idea/gamestudio-4925.iml" />
+    </modules>
+  </component>
+</project>

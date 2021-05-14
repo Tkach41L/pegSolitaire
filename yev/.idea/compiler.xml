@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Новая папка" />
+        <module name="gamestudio" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="gamestudio" target="14" />
       <module name="Новая папка" target="14" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gamestudio" options="-parameters" />
       <module name="Новая папка" options="-parameters" />
     </option>
   </component>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/stylesheet.css"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 class="mid">Welcome to <a href="/">pegSolitaire!</a></h1>
+<h1 th:text="${@pegsolitaireController.getState()}"></h1>
+<h1 th:text="${@pegsolitaireController.getCurrentAction()}"></h1>
+
+<!--/*@thymesVar id="userController" type="sk.tuke.gamestudio.server.controller.UserController"*/-->
+<!--/*@thymesVar id="PegsolitaireController" type="sk.tuke.gamestudio.server.controller.PegsolitaireController"*/-->
+<span th:if="${@userController.logged}">
+Logged as: <span th:text="${@userController.loggedUser.login}"/><br/>
+</span>
+
+
+
+
+
+
+<div class="flexi">
+<span th:utext="${@pegsolitaireController.htmlField}"/>
+<!--<span th:utext="${htmlField}"/>-->
+</div>
+
+
+<a href="/pegsolitaire/new" id="restart">Restart</a> <a href="/pegsolitaire/end">End game</a>
+
+
+<h1>Score: <span th:text="${@pegsolitaireController.getScore}"/></h1>
+
+
+<br/>
+<div>
+    <p>TopScores</p>
+
+</div>
+<div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Player</th>
+            <th>Points</th>
+            <th>Played at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="score: ${Topscores}">
+            <td th:text="${score.player}"></td>
+            <td th:text="${score.points}"></td>
+            <td th:text="${score.playedAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <P>TopComments</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Game</th>
+                <th>Player</th>
+                <th>Comment</th>
+                <th>Commented On</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment : ${Topcomments}">
+                <td th:text="${comment.game}"></td>
+                <td th:text="${comment.player}"></td>
+                <td th:text="${comment.comment}"></td>
+                <td th:text="${comment.commentedOn}"></td>
+            </tr>
+
+
+</div>
+
+<br>
+<h2>Add your Comment!</h2>
+<form method="get" action="/pegsolitaire/nComment">
+    <label for="nComment">Comment:</label>
+    <textarea name="comment" id="nComment" spellcheck="true" lang="eng" cols="40" rows="4"></textarea>
+    <br>
+    <input type="submit" value="Add comment">
+</form>
+
+
+</body>
+</html>

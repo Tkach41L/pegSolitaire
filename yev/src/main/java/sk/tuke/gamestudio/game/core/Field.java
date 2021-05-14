@@ -1,10 +1,8 @@
 package sk.tuke.gamestudio.game.core;
 
-import sk.tuke.gamestudio.game.core.Tile;
-
 public class Field {
     private final Tile[][] tiles = new Tile[9][9];
-
+    private int score;
     public Field() {
         for(int i = 0; i < 7; i++){
             for(int j = 0; j < 7; j++){
@@ -85,12 +83,46 @@ public class Field {
             tiles[y][x] = Tile.EMPTY;
             tiles[middleY][middleX] = Tile.EMPTY;
             tiles[newY][newX] = Tile.FIGURE;
+            System.out.println("ZAEBIS");
             return true;
         }
+        System.out.println(selectedPositionCheck);
+        System.out.println(middleFigureCheck);
+        System.out.println(movePositionCheck);
         return false;
     }
 
+    public boolean makeWebMove(int x, int y, int newX, int newY){
+//        x -= 1;
+//        y -= 1;
+//        newX -= 1;
+//        newY -= 1;
+        int middleX = x > newX ? x - (x - newX) / 2 : newX - (newX - x) / 2;
+        int middleY = y > newY ? y - (y - newY) / 2 : newY - (newY - y) / 2;
 
+        if(newX < 0 || newY < 0 || newX > 6 || newY > 6){
+            System.out.printf("%d %d\n", x, y);
+            return false;
+        }
+        if(tiles[newY][newX] == Tile.NONE){
+            System.out.printf("%d %d\n", x, y);
+            return false;
+        }
+        boolean selectedPositionCheck = tiles[y][x] == Tile.FIGURE;
+        boolean middleFigureCheck = tiles[middleY][middleX] == Tile.FIGURE;
+        boolean movePositionCheck = tiles[newY][newX] == Tile.EMPTY;
+        if(selectedPositionCheck && movePositionCheck && middleFigureCheck){
+            tiles[y][x] = Tile.EMPTY;
+            tiles[middleY][middleX] = Tile.EMPTY;
+            tiles[newY][newX] = Tile.FIGURE;
+            System.out.println("ZAEBIS");
+            return true;
+        }
+        System.out.println(selectedPositionCheck);
+        System.out.println(middleFigureCheck);
+        System.out.println(movePositionCheck);
+        return false;
+    }
 
     public boolean checkWin(){
         for(int y = 0; y < 7; y++){
@@ -154,4 +186,15 @@ public class Field {
         tiles[3][3] = Tile.EMPTY;
     }
 
+    public Tile getTile(int row, int column) {
+        return tiles[row][column];
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }
